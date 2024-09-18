@@ -8,15 +8,15 @@ import asyncio
 
 
 
-api = ""
+api = "7486861435:AAG63Ug7NaRfvx0ylx8cKmOcIfbWsQG-pqk"
 bot = Bot(token=api)
 dp = Dispatcher(bot, storage=MemoryStorage())
 
-kb = ReplyKeyboardMarkup()
+kb = ReplyKeyboardMarkup(resize_keyboard=True)
 button = KeyboardButton(text='Расcчитать')
 button2 = KeyboardButton(text='Информация')
-kb.row(button)
-kb.row(button2)
+kb.insert(button)
+kb.insert(button2)
 
 @dp.message_handler(commands= ['Start'])
 async def start(message):
@@ -24,14 +24,13 @@ async def start(message):
 
 @dp.message_handler(text='Информация')
 async def Inform(message):
-    await message.answer('В этой информации куда зачислять деньги!)')
+    await message.answer('В этой информации куда зачислять деньги --> +7999-234-21-88!)')
 
 
 class UserState(StatesGroup):
     age = State()
     growth = State()
     weight = State()
-
 
 @dp.message_handler(text='Расcчитать')
 async def set_age(message: Message):
@@ -65,6 +64,10 @@ async def send_calories(message: Message, state: FSMContext):
 
     await message.answer(f"Ваша норма калорий: {data}")
     await state.finish()
+
+@dp.message_handler()
+async def all_massages(message):
+    await message.answer('Введите команду /start, чтобы начать общение.')
 
 
 if __name__ == "__main__":
